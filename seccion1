@@ -1,0 +1,37 @@
+En SQL, tanto JOIN como UNION se utilizan para combinar datos de varias tablas, pero funcionan de manera diferente:
+
+Diferencia entre JOIN y UNION:
+JOIN: Se usa para combinar filas de dos o más tablas en función de una condición de relación (como una clave primaria o una clave foranea).
+Los JOIN pueden combinar varias columnas de ambas tablas.
+Tipos de JOIN: INNER JOIN, LEFT JOIN, RIGHT JOIN, FULL JOIN.
+
+UNION: Se usa para combinar los resultados de dos o más consultas SELECT.
+La diferencia clave es que UNION apila los resultados de manera vertical (es decir, las filas se apilan una encima de otra), no horizontalmente.
+
+Ejemplo de JOIN 
+
+Tabla Clientes
+ClienteID	                   Nombre
+1	                           Ana
+2	                           Luis
+3	                           Marta
+
+Tabla Pedidos
+PedidoID	                   ClienteID	                Producto
+101	                         1	                        Laptop
+102	                         2	                        Teléfono
+103	                         1	                        Teclado
+
+Si queremos obtener una lista de clientes con sus pedidos, usamos un JOIN:
+
+SELECT Clientes.Nombre, Pedidos.Producto
+FROM Clientes
+INNER JOIN Pedidos ON Clientes.ClienteID = Pedidos.ClienteID;
+
+Resultado:
+Nombre	                Producto
+Ana	                    Laptop
+Ana	                    Teclado
+Luis	                  Teléfono
+
+
