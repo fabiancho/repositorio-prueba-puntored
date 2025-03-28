@@ -1,0 +1,78 @@
+id      nombre      departamento      salario      fecha_contratacion
+1       Ana         Ventas            5000         2020-01-15
+2       Luis        IT                6000         2019-08-21
+3       María       Ventas            5500         2021-05-10
+4       Juan        IT                7000         2018-11-03
+Escriba una consulta SQL para obtener el promedio de salario por departamento,
+excluyendo empleados contratados después del 1 de enero de 2020.
+
+SELECT departamento, AVG(salario) AS promedio_salario
+FROM empleados
+WHERE fecha_contratacion <= '2020-01-01'
+GROUP BY departamento;
+
+clientes
+id (INT, PRIMARY KEY)
+nombre (VARCHAR)
+apellido (VARCHAR)
+ventas
+id (INT, PRIMARY KEY)
+cliente_id (INT, FOREIGN KEY a clientes.id)
+producto (VARCHAR)
+fecha (DATE)
+monto (DECIMAL)
+
+Obtener los 5 clientes con mayor monto total de ventas en los últimos 6 meses-------
+
+SELECT c.id, c.nombre, c.apellido, SUM(v.monto) AS total_ventas
+FROM clientes c
+JOIN ventas v ON c.id = v.cliente_id
+WHERE v.fecha >= DATE_SUB(CURDATE(), INTERVAL 6 MONTH)
+GROUP BY c.id, c.nombre, c.apellido
+ORDER BY total_ventas DESC
+LIMIT 5;
+
+Calcular el ticket promedio de ventas por cliente en el último año-------
+
+SELECT c.id, c.nombre, c.apellido, AVG(v.monto) AS ticket_promedio
+FROM clientes c
+JOIN ventas v ON c.id = v.cliente_id
+WHERE v.fecha >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+GROUP BY c.id, c.nombre, c.apellido;
+
+Obtener el nombre completo de los clientes y su monto total de ventas--------
+SELECT c.id, CONCAT(c.nombre, ' ', c.apellido) AS nombre_completo, SUM(v.monto) AS total_ventas
+FROM clientes c
+JOIN ventas v ON c.id = v.cliente_id
+GROUP BY c.id, nombre_completo;
+
+Obtener el ingreso promedio de ventas por mes---------
+SELECT DATE_FORMAT(v.fecha, '%Y-%m') AS mes, AVG(monto) AS ingreso_promedio
+FROM ventas v
+WHERE v.fecha >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+GROUP BY mes
+ORDER BY mes DESC;
+
+Calcular el ranking de clientes por ventas en el último año-----
+SELECT c.id, CONCAT(c.nombre, ' ', c.apellido) AS nombre_completo, 
+       SUM(v.monto) AS total_ventas,
+       RANK() OVER (ORDER BY SUM(v.monto) DESC) AS ranking
+FROM clientes c
+JOIN ventas v ON c.id = v.cliente_id
+WHERE v.fecha >= DATE_SUB(CURDATE(), INTERVAL 1 YEAR)
+GROUP BY c.id, nombre_completo
+ORDER BY total_ventas DESC;
+
+Calcular el total de ventas por cliente y seleccionar solo los clientes cuyo total de ventas es superior al promedio general----
+WITH total_ventas_cliente AS (
+    SELECT cliente_id, SUM(monto) AS total_ventas
+    FROM ventas
+    GROUP BY cliente_id
+),
+promedio_general AS (
+    SELECT AVG(total_ventas) AS promedio FROM total_ventas_cliente
+)
+SELECT c.id, CONCAT(c.nombre, ' ', c.apellido) AS nombre_completo, t.total_ventas
+FROM total_ventas_cliente t
+JOIN clientes c ON c.id = t.cliente_id
+JOIN promedio_general p ON t.total_ventas > p.promedio;

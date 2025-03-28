@@ -1,6 +1,0 @@
-
-
-SELECT departamento, AVG(salario) AS promedio_salario
-FROM empleados
-WHERE fecha_contratacion <= '2020-01-01'
-GROUP BY departamento;
