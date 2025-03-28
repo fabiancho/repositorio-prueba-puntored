@@ -1,0 +1,18 @@
+Dado un archivo CSV llamado datos_ventas.csv con las siguientes columnas: fecha, producto, cantidad, precio_unitario, escriba un script en Python que:
+● Lea el archivo CSV.
+● Calcule el total de ventas por producto.
+● Genere un archivo resumen_ventas.csv con los resultados.
+
+import pandas as pd
+
+# 1️ Leer el archivo CSV
+df = pd.read_csv("datos_ventas.csv")
+
+# 2️⃣ Calcular el total de ventas por producto
+df["total_venta"] = df["cantidad"] * df["precio_unitario"]  # Calcular total por fila
+resumen = df.groupby("producto")["total_venta"].sum().reset_index()  # Sumar por producto
+
+# 3️⃣ Guardar los resultados en un nuevo archivo CSV
+resumen.to_csv("resumen_ventas.csv", index=False)
+
+print("✅ Archivo 'resumen_ventas.csv' generado con éxito.")
