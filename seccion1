@@ -68,3 +68,64 @@ SELECT cliente_id, SUM(monto) AS total_ventas
 FROM ventas
 GROUP BY cliente_id
 HAVING SUM(monto) > 250;
+
+----------------------------------------------------------------------------------------------------
+
+Python
+
+1. ¿Cuál es la diferencia entre una lista y un diccionario en Python? Dé un ejemplo de
+cada uno.
+Característica	                        Lista (list)	                                    Diccionario (dict)
+Definición	                            Colección ordenada de elementos	                    Colección de pares clave-valor
+Acceso a elementos	                    Por índice numérico (posición)	                    Por clave
+Ejemplo de acceso	                    mi_lista[0]	                                        mi_diccionario["nombre"]
+Tipos de datos permitidos	            Cualquier tipo de dato	                            Claves deben ser inmutables
+
+
+2. ¿Qué librerías en Python se utilizan comúnmente para análisis de datos? Mencione
+al menos tres.
+Las librerias mas utilizadas para el analisis de datos es 
+ - Pandas 🐼
+ - NumPy
+ - Matplotlib 📊
+
+
+3. ¿Qué salida generará el siguiente código en Python?
+data = [5, 3, 9, 1]
+print(sorted(data)[-2])
+
+En la primera linea crea una lista con los datos  5, 3, 9, 1
+despues ordenada los datos de menor a mayor
+y por ultimo impreme la penultima posicion
+es decir al momento de imprimir el resultado es el numero 5
+
+-------------------------------------------------------------------------------------------------------------------------
+
+Tableau
+
+1. ¿Cuál es la diferencia entre una medida y una dimensión en Tableau?
+
+Dimensión	                                                                           Medida
+Datos categóricos que describen o agrupan información.	                               Datos numéricos que pueden ser calculados o agregados.
+Nombre, Fecha, Ciudad.	                                                               Ventas, Precio, Cantidad, Promedio.
+Se utilizan para segmentar, clasificar o agrupar datos.	                               Se utilizan en cálculos y agregaciones como SUM, AVG, COUNT.
+Texto, fechas, categorías.	                                                           Números continuos.
+
+2. ¿Qué tipo de gráfico es más adecuado para comparar porcentajes de una variable
+categórica?
+1️⃣ Gráfico de Barras 📊
+✔ Se usa cuando queremos comparar proporciones entre categorías.
+✔ Muestra los valores de manera clara y precisa.
+
+3. ¿Cómo se puede crear un filtro dinámico en Tableau para que el usuario pueda
+seleccionar un rango de fechas?
+Primeramente hay que agregar un campo de fecha a la vista
+Aplicar un rango de fechas
+Mostrar el filtro en la vista
+Personalizar el filtro dinamico
+
+4. ¿Que es un archivo hyper en tableau, y en que caso de uso se puede aplicar?
+Un archivo .hyper en Tableau es un formato de base de datos optimizado para almacenar, 
+procesar y analizar grandes volúmenes de datos de manera eficiente.
+Los archivos .hyper son extractos de datos que se pueden usar sin conexión y permiten
+una consulta más rápida que una conexión en vivo a una base de datos.
